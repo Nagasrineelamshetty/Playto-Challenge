@@ -43,7 +43,9 @@ To avoid N+1 queries when loading deeply nested comment trees:
 2. The hierarchy is constructed **in memory**, not via recursive database calls
 
 ```python
-comments = Comment.objects.filter(post=post).select_related("author")
+posts = Post.objects.select_related("author").annotate(...)
+comments = Comment.objects.select_related("author").annotate(...)
+
 ```
 
 This ensures a constant number of database queries regardless of comment depth.
@@ -53,14 +55,23 @@ This ensures a constant number of database queries regardless of comment depth.
 ### Tree Construction (In Memory)
 
 ```python
-comment_map = {c.id: c for c in comments}
-root_comments = []
+def build_comment_tree(comments):
+    comment_map = {}
+    roots = []
 
-for comment in comments:
-    if comment.parent_id:
-        comment_map[comment.parent_id].children_list.append(comment)
-    else:
-        root_comments.append(comment)
+    for comment in comments:
+        comment.replies_list = []
+        comment_map[comment.id] = comment
+
+    for comment in comments:
+        if comment.parent_id:
+            parent = comment_map.get(comment.parent_id)
+            if parent:
+                parent.replies_list.append(comment)
+        else:
+            roots.append(comment)
+
+    return roots
 ```
 
 * Runs in **O(n)** time
@@ -71,17 +82,16 @@ for comment in comments:
 
 ### Serialization
 
-Once the tree is built, it is serialized recursively:
+Once the tree is built, it is serialized:
 
 ```python
-def serialize_comment(comment):
-    return {
-        "id": comment.id,
-        "author": {...},
-        "content": comment.content,
-        "created_at": comment.created_at,
-        "replies": [serialize_comment(c) for c in comment.children_list]
-    }
+def serialize_tree(self, comments):
+        data = []
+        for comment in comments:
+            serialized = CommentSerializer(comment).data
+            serialized["replies"] = self.serialize_tree(comment.replies_list)
+            data.append(serialized)
+        return data
 ```
 
 Database access is completed **before** serialization, keeping performance predictable.

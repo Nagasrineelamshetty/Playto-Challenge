@@ -49,6 +49,7 @@ class LeaderboardAPIView(APIView):
         ]
 
         return Response(response)
+    
 class LikeAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -100,6 +101,7 @@ def build_comment_tree(comments):
             roots.append(comment)
 
     return roots
+
 class PostListAPIView(APIView):
     def get(self, request):
         posts = (
