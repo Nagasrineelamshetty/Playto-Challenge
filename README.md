@@ -25,10 +25,10 @@ The app supports text posts, threaded comments, likes with karma-based gamificat
 ## Screenshots
 
 ### Community Feed
-![Community Feed](screenshots/feed.png)
+![Community Feed](screenshots/Feed.png)
 
 ### Leaderboard (Last 24h)
-![Leaderboard](screenshots/leaderboard.png)
+![Leaderboard](screenshots/Leaderboard.png)
 
 
 ## How to Run Locally
