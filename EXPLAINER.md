@@ -171,8 +171,6 @@ This approach also duplicated state already represented by the `Like` model, cre
 
 I removed the `KarmaEvent` model entirely and implemented the leaderboard using conditional aggregation on the `Like` table, applying point weights at query time and filtering to the last 24 hours. This ensured a single source of truth, improved correctness, and aligned with production-grade data modeling principles.
 
-```
 
----
 
 

@@ -19,6 +19,18 @@ The app supports text posts, threaded comments, likes with karma-based gamificat
 
 ---
 
+## Deployed URL:
+- https://playto-challenge-frontend.onrender.com/
+
+## Screenshots
+
+### Community Feed
+![Community Feed](screenshots/feed.png)
+
+### Leaderboard (Last 24h)
+![Leaderboard](screenshots/leaderboard.png)
+
+
 ## How to Run Locally
 
 ---
@@ -166,9 +178,3 @@ credentials: "include"
 
 ---
 
-```
-
----
-
-
-```
