@@ -98,6 +98,30 @@ http://127.0.0.1:8000
 
 ---
 
+### Seeding Data via Django Admin
+
+This prototype does not include a public sign-up or post creation UI.
+
+To populate the application with data for testing and review:
+
+1. Open the Django Admin panel:
+http://127.0.0.1:8000/admin/
+
+
+2. Log in using the superuser credentials you created.
+
+3. From the admin dashboard, you can:
+- Create **Users**
+- Create **Posts** (authored by different users)
+- Add **Comments** and nested replies
+- Manage **Likes**
+
+4. Once data is created in the admin panel, open the frontend.
+http://localhost:3000
+
+
+The **Community Feed** and **Leaderboard** will automatically reflect the data created in the backend.
+
 ## 2. Frontend Setup (React)
 
 ### Open a new terminal and navigate to the frontend directory
