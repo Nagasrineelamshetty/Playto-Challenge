@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const API_BASE = process.env.API_BASE_URL;
 
 function Feed() {
   const [posts, setPosts] = useState([]);
